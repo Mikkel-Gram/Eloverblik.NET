@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Globalization;
 
 namespace Eloverblik.NET
 {
@@ -25,7 +26,7 @@ namespace Eloverblik.NET
             _httpClient = httpClient ?? new HttpClient();
         }
 
-        public async Task GetMeteringPointTimeSeries(IEnumerable<string> meterIds, DateTime dateFrom, DateTime dateTo)
+        public async Task<List<(string, List<(DateTime, double)>)>> GetMeteringPointTimeSeries(IEnumerable<string> meterIds, DateTime dateFrom, DateTime dateTo)
         {
             var aggregation = Aggregation.Hour;
             var apiRoute = $"api/meterdata/gettimeseries/{dateFrom.ToString(dateFormat)}/" +
@@ -44,6 +45,34 @@ namespace Eloverblik.NET
                 headers: headers, body: ConvertToJsonContent(request));
             
             var body = await response.ParseJson<GetMeteringPointTimeSeriesResponse>();
+
+            // Convert response to output
+            var output = new List<(string, List<(DateTime, double)>)>();
+
+            foreach (var result in body.Result)
+            {
+                var timeSeries = new List<(DateTime, double)>();
+
+                if (!result.Success)
+                    output.Add((result.Id, timeSeries));
+
+                var date = dateFrom.Date;
+                foreach (var series in result.MyEnergyDataMarketDocument.TimeSeries)
+                {
+                    foreach (var period in series.Period)
+                    {
+                        foreach (var point in period.Point)
+                        {
+                            var value = double.Parse(point.OutQuantityQuantity, CultureInfo.InvariantCulture);
+                            var time = date.Add(TimeSpan.FromHours(int.Parse(point.Position, CultureInfo.InvariantCulture) -1));
+                            timeSeries.Add((time, value));
+                        }
+                    }
+                    date = date.AddDays(1);
+                }
+                output.Add((result.Id, timeSeries));
+            }
+            return output;
         }
 
         public async Task<IEnumerable<Reading>> GetMeterReadings(IEnumerable<string> meterIds, DateTime dateFrom, DateTime dateTo)

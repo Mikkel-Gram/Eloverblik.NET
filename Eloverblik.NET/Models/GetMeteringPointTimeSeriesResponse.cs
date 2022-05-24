@@ -7,7 +7,7 @@ namespace Eloverblik.NET.Models
     internal class GetMeteringPointTimeSeriesResponse
     {
         [JsonPropertyName("result")]
-        public List<Result2> Result { get; set; }
+        public List<TimeSeriesResult> Result { get; set; }
     }
 
     public class MarketEvaluationPoint
@@ -79,7 +79,7 @@ namespace Eloverblik.NET.Models
         public string OutQuantityQuality { get; set; }
     }
 
-    public class Result2
+    public class TimeSeriesResult
     {
         [JsonPropertyName("MyEnergyData_MarketDocument")]
         public MyEnergyDataMarketDocument MyEnergyDataMarketDocument { get; set; }
