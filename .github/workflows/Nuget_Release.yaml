@@ -31,8 +31,10 @@ jobs:
     - name: Build
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
       
-    - name: Pack
-      run: dotnet pack
-
     - name: Run tests
-      run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
+      run: dotnet test --configuration $BUILD_CONFIG --no-restore --no-build --verbosity normal
+      
+    - name: Pack
+      run: dotnet pack --no-restore --no-build
+
+    
