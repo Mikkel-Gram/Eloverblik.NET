@@ -34,7 +34,7 @@ jobs:
     - name: Run tests
       run: dotnet test --configuration $BUILD_CONFIG --no-restore --no-build --verbosity normal
       
-    - name: Pack
-      run: dotnet pack --configuration $BUILD_CONFIG --no-restore --no-build
+#    - name: Pack
+#      run: dotnet pack --configuration $BUILD_CONFIG --no-restore --no-build
 
     
