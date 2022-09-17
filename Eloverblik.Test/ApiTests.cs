@@ -21,12 +21,14 @@ namespace Eloverblik.Test
         }
 
         [TestMethod]
+        [Ignore]
         public async Task Should_get_token()
         {
             var token = await _api.GetToken();
         }
 
         [TestMethod]
+        [Ignore]
         public async Task Should_get_metering_points()
         {
             var meteringPoints = await _api.GetMeteringPoints(true);
