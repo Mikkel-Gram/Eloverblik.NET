@@ -39,7 +39,7 @@ namespace Eloverblik.Test
         [Ignore]
         public async Task Should_get_meter_readings()
         {
-            await _api.GetMeterReadings(new List<string>() { "571313161160152568" },
+            var readings = await _api.GetMeterReadings(new List<string>() { "571313161160152568" },
                 new DateTime(2019, 01, 01), new DateTime(2020, 01, 01));
         }
 
@@ -47,8 +47,8 @@ namespace Eloverblik.Test
         [Ignore]
         public async Task Should_get_meter_timeseries()
         {
-            await _api.GetMeteringPointTimeSeries(new List<string>() { "571313161160152568" },
-                new DateTime(2020, 01, 01), new DateTime(2020, 01, 3));
+            var timeseries = await _api.GetMeteringPointTimeSeries(new List<string>() { "571313161160152568" },
+                new DateTime(2020, 01, 01), new DateTime(2020, 01, 10));
         }
     }
 }
