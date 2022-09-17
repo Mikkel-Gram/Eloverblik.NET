@@ -34,6 +34,7 @@ namespace Eloverblik.Test
         }
 
         [TestMethod]
+        [Ignore]
         public async Task Should_get_meter_readings()
         {
             await _api.GetMeterReadings(new List<string>() { "571313161160152568" },
@@ -41,6 +42,7 @@ namespace Eloverblik.Test
         }
 
         [TestMethod]
+        [Ignore]
         public async Task Should_get_meter_timeseries()
         {
             await _api.GetMeteringPointTimeSeries(new List<string>() { "571313161160152568" },
