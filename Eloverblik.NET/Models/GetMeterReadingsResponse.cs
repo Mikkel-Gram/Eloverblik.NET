@@ -37,7 +37,7 @@ namespace Eloverblik.NET.Models
         public bool Success { get; set; }
 
         [JsonPropertyName("errorCode")]
-        public string ErrorCode { get; set; }
+        public int ErrorCode { get; set; }
 
         [JsonPropertyName("errorText")]
         public string ErrorText { get; set; }
