@@ -37,7 +37,7 @@ jobs:
       run: dotnet test --configuration $BUILD_CONFIG --no-restore --no-build --verbosity normal
 
     - name: Publish
-      if: github.event_name == "release" || github.event_name == "pull_request"
+      if: github.event_name == 'release' || github.event_name == 'pull_request'
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
 
     
