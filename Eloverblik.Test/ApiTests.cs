@@ -16,7 +16,7 @@ namespace Eloverblik.Test
         [TestInitialize]
         public void Init()
         {
-            _refreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJDdXN0b21lckFQSV9SZWZyZXNoIiwidG9rZW5pZCI6IjdlZGU4NTUyLWJhODMtNDhkMi1iYzliLWZjMmUwZjA4MTlkOSIsIndlYkFwcCI6WyJDdXN0b21lckFwaSIsIkN1c3RvbWVyQXBwQXBpIl0sImp0aSI6IjdlZGU4NTUyLWJhODMtNDhkMi1iYzliLWZjMmUwZjA4MTlkOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiUElEOjkyMDgtMjAwMi0yLTkwMDEzMjQyMjQwMCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IlBzZXVkb255bSIsImxvZ2luVHlwZSI6IktleUNhcmQiLCJwaWQiOiI5MjA4LTIwMDItMi05MDAxMzI0MjI0MDAiLCJ0eXAiOiJQT0NFUyIsInVzZXJJZCI6IjE3OTcxMSIsImV4cCI6MTY4MzIyOTg5MywiaXNzIjoiRW5lcmdpbmV0IiwidG9rZW5OYW1lIjoiQVdTIHRva2VuIiwiYXVkIjoiRW5lcmdpbmV0In0.OajerUsSqwCh9ZPSdNey9N7Uo6txJ4RMd3EVKKCZUR8";
+            _refreshToken = Environment.GetEnvironmentVariable("EloverblikRefreshToken");
             _api = new EloverblikApi(_refreshToken);
         }
 
