@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches:
+    - master
+  release:
+    types: [released]
+    
+jobs:
+  build:
+
+    env:
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'Eloverblik.NET.sln'
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.x
+
+    - name: Restore dependencies
+      run: nuget restore $SOLUTION
+
+    - name: Build
+      run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+      
+    - name: Run tests
+      run: dotnet test --configuration $BUILD_CONFIG --no-restore --no-build --verbosity normal
+
+    - name: Publish
+      if: github.event_name == 'release' || github.event_name == 'pull_request' || github.ref == 'refs/heads/master'
+      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+
+    
